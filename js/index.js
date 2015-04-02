@@ -23,17 +23,19 @@ $(function () {
 
 	function onSubmit () {
 		getVideo($videoInput.val(), fillVideoInfo);
+		NProgress.start();
 		$videoTitle.html('Cargando...');
 	};
 
 	function fillVideoInfo (jsonData) {
 		var videoTitle = jsonData.video.title;
-		
+
 		$videoTitle.html(videoTitle);
+		NProgress.done();
 	};
 
 	$button.on('click', onSubmit);
 });
 
 // Access-Control-Allow-Origin: *
-// CORS	
+// CORS
