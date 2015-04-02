@@ -8,21 +8,19 @@ body
 .Header
 	background: $white
 	display block
-
-.Header-container
-	position relative
-	height inherit
-
-.Header-menuContainer
-	padding 7px 0
-	overflow hidden
-
-.Header-logo
-	float left
-	padding 2px 0
-	box-sizing border-box
-	img
-		display block
+	margin 0 0 10px 0
+	.Header-container
+		position relative
+		height inherit
+		.Header-menuContainer
+			padding 7px 0
+			overflow hidden
+			.Header-logo
+				float left
+				padding 2px 0
+				box-sizing border-box
+				img
+					display block
 
 
 .MainMenu
@@ -42,3 +40,53 @@ body
 			.MainMenu-link
 				color $white
 
+.Footer
+	background $white
+	display block
+	position relative
+	bottom 0
+	width 100%
+	.Footer-container
+		padding 20px 10px	
+		span
+			display inline-block
+			vertical-align middle
+			
+.MainSection
+	margin 0 0 10px 0
+	display block
+	.MainSection-container
+		background $white
+		border-radius 3px
+		padding 15px
+		.MainSection-title
+			margin 0 0 10px 0
+		.MainSection-form
+			#youtube-url
+				display block
+				width 100%
+				margin-bottom 10px
+			#youtube-button
+				margin 0 auto
+				display block
+				
+
+.MainSection-result
+	margin 15px 0 0 0
+	.Links
+		display block
+		margin 0 auto
+		padding 0
+		text-align center
+		.Link-option
+			display inline-block
+			.link
+				text-decoration none
+				margin 0 5px
+	.video
+		display block
+		margin 0 auto 15px auto
+		iframe
+			display block
+			margin 0 auto
+			

@@ -2,4 +2,28 @@
  * # Botones
  */
 
-.Button {}
+$btn	
+	border-radius 0.2em
+	box-shadow: 0 1px 0 rgba(0,0,0,0.05)
+	box-sizing: border-box
+	display inline-block
+	font-weight: bold
+	padding 0 0.5em 
+	height 2.1em
+	line-height 2.1em
+	vertical-align: middle
+	
+.btn-primary
+	@extend $btn
+	button-variant($white, #167ac6, #167ac6)
+
+.btn-succes
+	@extend $btn
+	button-variant($white, #5cb85c, #5cb85c)	
+	
+.btn-lg
+	font-size 1.5rem
+.btn-sm 
+	font-size 1rem
+.btn-xs	
+	font-size 0.8rem

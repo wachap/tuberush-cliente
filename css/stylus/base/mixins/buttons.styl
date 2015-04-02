@@ -1,0 +1,11 @@
+button-variant($color, $background, $border)
+	background-color $background
+	border 1px solid transparent
+	border-color $border
+	color $color
+	&:active,
+	&:hover,
+	&:focus
+		background-color: darken($background, 10%);
+		border-color: darken($border, 12%);
+		color $color
