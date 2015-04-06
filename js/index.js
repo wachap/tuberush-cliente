@@ -13,7 +13,7 @@ function getVideo (url, callback) {
 		data: {
 			url: url
 		},
-		url: PATH+"/urls/",
+		url: PATH+"/videos/url",
 		error: onError
 	})
 	.done( callback );
@@ -28,7 +28,8 @@ function videoTemplate (video) {
 		v480p = video.links.mp4.v480p,
 		v720p = video.links.mp4.v720p;
 
-	html += '<div class="video"><iframe width="854" height="510" src="https://www.youtube.com/embed/'+video.id+'" frameborder="0" allowfullscreen></iframe></div>';
+	html += '<h1>'+video.title+'</h1>'
+	html += '<div class="video"><iframe width="640" height="360" src="https://www.youtube.com/embed/'+video.id+'" frameborder="0" allowfullscreen></iframe></div>';
 	html += '<ul class="Links">';
 	if (v360p !=null)
 		html += '<li class="Link-option"><a href="'+v360p+'" download class="link btn-succes btn-lg">360p</a></li>'
@@ -48,8 +49,6 @@ var $resultOut = $('#result');
 
 $videoInput.on('keyup', onKeyUp);
 $button.on('click', onSubmit);
-
-var $videoTitle = $('.MainSection-title');
 
 function onKeyUp (evt) {
 	if (evt.keyCode == 13) {
@@ -76,7 +75,6 @@ function fillVideoInfo (jsonData) {
 	};
 
 	var videoTitle = jsonData.video.title;
-	$videoTitle.html(videoTitle);
 
 	var html = videoTemplate(jsonData.video);
 	$resultOut.html(html);
