@@ -27,9 +27,10 @@ function videoTemplate (video) {
 		v360p = video.links.mp4.v360p,
 		v480p = video.links.mp4.v480p,
 		v720p = video.links.mp4.v720p;
+		a128p = video.links.mp3.a128p;
 
 	html += '<h1>'+video.title+'</h1>'
-	html += '<div class="video"><iframe width="640" height="360" src="https://www.youtube.com/embed/'+video.id+'" frameborder="0" allowfullscreen></iframe></div>';
+	html += '<div class="video-wrapper"><div class="video"><iframe width="640" height="360" src="https://www.youtube.com/embed/'+video.id+'" frameborder="0" allowfullscreen></iframe></div></div>';
 	html += '<ul class="Links">';
 	if (v360p !=null)
 		html += '<li class="Link-option"><a href="'+v360p+'" download class="link btn-succes btn-lg">360p</a></li>'
@@ -37,6 +38,8 @@ function videoTemplate (video) {
 		html += '<li class="Link-option"><a href="'+v480p+'" download class="link btn-succes btn-lg">480p</a></li>'
 	if (v720p !=null)
 		html += '<li class="Link-option"><a href="'+v720p+'" download class="link btn-succes btn-lg">720p</a></li>'
+	if (a128p !=null)
+		html += '<li class="Link-option"><a href="'+a128p+'" download class="link btn-succes btn-lg">audio</a></li>'
 	html += '</ul>';
 
 	return html
