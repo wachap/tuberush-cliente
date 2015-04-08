@@ -2,12 +2,10 @@ $(function () {
 
 
 // Globals
-
 var PATH = "http://localhost:3000";
 
 
 // AJAX Functions
-
 function getVideo (url, callback) {
 	$.ajax({
 		data: {
@@ -19,9 +17,18 @@ function getVideo (url, callback) {
 	.done( callback );
 };
 
+// SOCKET Functions
+function getSocket () {
+	var socket = io.connect(PATH);
+	socket.on('test', function (data) {
+		console.log(data);
+	});
+	socket.emit('testCliente', {hola:'mundo desde el cliente'});
+};
+getSocket();
+
 
 // Template Functions
-
 function videoTemplate (video) {
 	var html = '',
 		v360p = video.links.mp4.v360p,
@@ -39,7 +46,7 @@ function videoTemplate (video) {
 	if (v720p !=null)
 		html += '<li class="Link-option"><a href="'+v720p+'" download class="link btn-succes btn-lg">720p</a></li>'
 	if (a128p !=null)
-		html += '<li class="Link-option"><a href="'+a128p+'" download class="link btn-succes btn-lg">audio</a></li>'
+		html += '<li class="Link-option"><a href="'+a128p+'" download class="link btn-succes btn-lg">audio mp4</a></li>'
 	html += '</ul>';
 
 	return html
