@@ -20,7 +20,7 @@ function getVideo (url, callback) {
 // SOCKET Functions
 function getSocket () {
 	var socket = io.connect(PATH);
-	socket.on('test', function (data) {
+	socket.on('testServer', function (data) {
 		console.log(data);
 	});
 	socket.emit('testCliente', {hola:'mundo desde el cliente'});
@@ -40,13 +40,13 @@ function videoTemplate (video) {
 	html += '<div class="video-wrapper"><div class="video"><iframe width="640" height="360" src="https://www.youtube.com/embed/'+video.id+'" frameborder="0" allowfullscreen></iframe></div></div>';
 	html += '<ul class="Links">';
 	if (v360p !=null)
-		html += '<li class="Link-option"><a href="'+v360p+'" download class="link btn-succes btn-lg">360p</a></li>'
+		html += '<li class="Link-option"><a href="'+v360p+'" download="'+video.title+' 360p.mp4" class="link btn-succes btn-lg">360p</a></li>'
 	if (v480p !=null)
-		html += '<li class="Link-option"><a href="'+v480p+'" download class="link btn-succes btn-lg">480p</a></li>'
+		html += '<li class="Link-option"><a href="'+v480p+'" download="'+video.title+' 480p.mp4" class="link btn-succes btn-lg">480p</a></li>'
 	if (v720p !=null)
-		html += '<li class="Link-option"><a href="'+v720p+'" download class="link btn-succes btn-lg">720p</a></li>'
+		html += '<li class="Link-option"><a href="'+v720p+'" download="'+video.title+' 720p.mp4" class="link btn-succes btn-lg">720p</a></li>'
 	if (a128p !=null)
-		html += '<li class="Link-option"><a href="'+a128p+'" download class="link btn-succes btn-lg">audio mp4</a></li>'
+		html += '<li class="Link-option"><a href="'+a128p+'" download="'+video.title+'.m4a" class="link btn-succes btn-lg">audio mp4</a></li>'
 	html += '</ul>';
 
 	return html
