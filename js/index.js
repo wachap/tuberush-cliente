@@ -1,8 +1,15 @@
 $(function () {
 
-
 // Globals
 var PATH = "http://localhost:3000";
+
+// Sockets
+var socket = io.connect(PATH);
+
+socket.on('sendVideo', function (data) {
+	console.log("enviado:", data);
+	fillNewVideo(data);
+});
 
 
 // AJAX Functions
@@ -16,16 +23,6 @@ function getVideo (url, callback) {
 	})
 	.done( callback );
 };
-
-// SOCKET Functions
-function getSocket () {
-	var socket = io.connect(PATH);
-	socket.on('testServer', function (data) {
-		console.log(data);
-	});
-	socket.emit('testCliente', {hola:'mundo desde el cliente'});
-};
-getSocket();
 
 
 // Template Functions
@@ -52,10 +49,17 @@ function videoTemplate (video) {
 	return html
 };
 
+function newVideoTemplate (video) {
+	var html = '';
+
+	return html;
+};
+
 
 var $videoInput = $('#youtube-url');
 var $button = $('#youtube-button');
 var $resultOut = $('#result');
+var $lastVideosResultOut = $('#lastVideos');
 
 $videoInput.on('keyup', onKeyUp);
 $button.on('click', onSubmit);
@@ -84,13 +88,17 @@ function fillVideoInfo (jsonData) {
 		return onError();
 	};
 
-	var videoTitle = jsonData.video.title;
-
 	var html = videoTemplate(jsonData.video);
 	$resultOut.html(html);
 	NProgress.done();
+	
+	socket.emit('newVideo', {id: jsonData.video.id || null});
 };
 
+function fillNewVideo (jsonData) {
+	var html = newVideoTemplate(jsonData.videos);	
+	$lastVideosResultOut.append(html);
+};
 
 });
 
