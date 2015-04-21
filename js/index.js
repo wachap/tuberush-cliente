@@ -1,13 +1,14 @@
 $(function () {
 
 // Globals
-var PATH = "http://localhost:3000";
+var PATH = "http://tuberush.herokuapp.com";
+
 
 // Sockets
 var socket = io.connect(PATH);
 
 socket.on('sendVideo', function (data) {
-	console.log("enviado:", data);
+	data = JSON.parse(data);
 	fillNewVideo(data);
 });
 
@@ -51,7 +52,7 @@ function videoTemplate (video) {
 
 function newVideoTemplate (video) {
 	var html = '';
-
+	html += '<li><a href="'+video.url+'"><img src="'+video.thumbnail_url+'" alt="'+video.title+'"></a></li>';
 	return html;
 };
 
@@ -59,15 +60,23 @@ function newVideoTemplate (video) {
 var $videoInput = $('#youtube-url');
 var $button = $('#youtube-button');
 var $resultOut = $('#result');
+var $lastVideo = $('#lastVideos');
 var $lastVideosResultOut = $('#lastVideos');
 
 $videoInput.on('keyup', onKeyUp);
 $button.on('click', onSubmit);
+$lastVideo.on('click', 'li', onClickVideo);
 
 function onKeyUp (evt) {
 	if (evt.keyCode == 13) {
 		onSubmit();
 	};
+};
+
+function onClickVideo (datos) {	
+	datos.preventDefault();
+	$videoInput.val(datos.currentTarget.children[0].href);
+	onSubmit();
 };
 
 function onSubmit () {
@@ -79,7 +88,8 @@ function onSubmit () {
 function onError() {
 	NProgress.done();
 	$resultOut.html( '<p class="error">Error... :(</p>' );
-}
+};
+
 
 // Fill Functions
 
@@ -95,7 +105,7 @@ function fillVideoInfo (jsonData) {
 	socket.emit('newVideo', {id: jsonData.video.id || null});
 };
 
-function fillNewVideo (jsonData) {
+function fillNewVideo (jsonData) {	
 	var html = newVideoTemplate(jsonData.videos);	
 	$lastVideosResultOut.append(html);
 };
