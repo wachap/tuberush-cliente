@@ -14,6 +14,13 @@ socket.on('sendVideo', function (data) {
 
 
 // AJAX Functions
+function getLastVideos (callback) {
+	$.ajax({
+		url: PATH+"/videos"
+	})
+	.done( callback );
+};
+
 function getVideo (url, callback) {
 	$.ajax({
 		data: {
@@ -63,20 +70,25 @@ var $resultOut = $('#result');
 var $lastVideo = $('#lastVideos');
 var $lastVideosResultOut = $('#lastVideos');
 
+$(document).on('ready', onReady);
 $videoInput.on('keyup', onKeyUp);
 $button.on('click', onSubmit);
 $lastVideo.on('click', 'li', onClickVideo);
-
-function onKeyUp (evt) {
-	if (evt.keyCode == 13) {
-		onSubmit();
-	};
-};
 
 function onClickVideo (datos) {	
 	datos.preventDefault();
 	$videoInput.val(datos.currentTarget.children[0].href);
 	onSubmit();
+};
+
+function onReady () {
+	getLastVideos(fillLastVideos);	
+};
+
+function onKeyUp (evt) {
+	if (evt.keyCode == 13) {
+		onSubmit();
+	};
 };
 
 function onSubmit () {
@@ -107,7 +119,16 @@ function fillVideoInfo (jsonData) {
 
 function fillNewVideo (jsonData) {	
 	var html = newVideoTemplate(jsonData.videos);	
-	$lastVideosResultOut.append(html);
+	$lastVideosResultOut.prepend(html);
+};
+
+function fillLastVideos (jsonData) {
+	var videos = jsonData.videos;
+
+	$(videos).each(function (i) {
+		var html = newVideoTemplate(videos[i]);
+		$lastVideosResultOut.prepend(html);
+	});	
 };
 
 });
