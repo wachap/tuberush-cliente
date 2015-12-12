@@ -1,3 +1,3 @@
-# tuberush-cliente
+# TubeRush cliente
 
-CLient side to [Tuberush-api](https://github.com/wachap/tuberush-api)
+Client side to [Tuberush-api](https://github.com/wachap/tuberush-api)
